@@ -15,7 +15,10 @@ class UserController {
 
   async getAll(req, res) {
     try {
-      const allUsers = await userModel.find({});
+      const { page } = req.query;
+      const PAGE_SIZE = 1;
+      const skipUser = (page - 1) * PAGE_SIZE;
+      const allUsers = await userModel.find({}).skip(skipUser).limit(PAGE_SIZE);
       return res.status(200).json({
         data: allUsers,
       });
