@@ -1,4 +1,5 @@
 const userModel = require("../models/user.model");
+const { mongooseToObect } = require("../utils/mongoose");
 
 class UserController {
   async get(req, res) {
@@ -6,7 +7,7 @@ class UserController {
       const { id } = req.params;
       const user = await userModel.findOne({ id });
       return res.status(200).json({
-        data: user,
+        data: mongooseToObect(user),
       });
     } catch (error) {
       return res.status(500).json({ message: error.message });
