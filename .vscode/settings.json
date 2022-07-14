@@ -1,6 +1,8 @@
 {
   "files.exclude": {
     "api\\node_modules": true,
-    "api\\package-lock.json": true
+    "api\\package-lock.json": true,
+    "dashboard\\node_modules": true,
+    "dashboard\\package-lock.json": true
   }
 }

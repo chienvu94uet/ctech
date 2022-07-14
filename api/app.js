@@ -1,12 +1,15 @@
 const express = require("express");
 const path = require("path");
+const cors = require("cors");
+var cookieParser = require("cookie-parser");
 const connect = require("./configs/mongo");
 require("dotenv").config();
 const authRoute = require("./routes/auth.route");
 const userRoute = require("./routes/user.route");
 
 const app = express();
-console.log(path.resolve(__dirname, "public"));
+app.use(cors());
+app.use(cookieParser());
 // path.join('/a', '/b') // Outputs '/a/b'
 // path.resolve('/a', '/b') // Outputs '/b'
 // b có dấu / nó hiểu là đường dẫn tuyệt đối nó sẽ lấy luôn
