@@ -3,14 +3,13 @@ const userModel = require("../models/user.model");
 class AuthController {
   async register(req, res) {
     const { username, password } = req.body;
-    let isExistUser = false;
-
+    let isExistUser;
     try {
       const userByUsername = await userModel.findOne({ username: username });
       isExistUser = userByUsername ? true : false;
     } catch (error) {
       return res.status(500).json({
-        msg: "Server error",
+        msg: "Server error" + error.message,
       });
     }
 
@@ -20,16 +19,22 @@ class AuthController {
       });
     }
 
-    const newUser = await userModel.create({
-      username,
-      password,
-    });
-
-    res.status(201).json({
-      data: {
+    try {
+      await userModel.create({
         username,
-      },
-    });
+        password,
+      });
+
+      return res.status(201).json({
+        data: {
+          username,
+        },
+      });
+    } catch (error) {
+      return res.status(500).json({
+        msg: "Server error",
+      });
+    }
   }
 
   async login(req, res) {
@@ -50,6 +55,12 @@ class AuthController {
         msg: "User not found",
       });
     }
+
+    return res.status(200).json({
+      data: {
+        username,
+      },
+    });
   }
 }
 

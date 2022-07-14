@@ -2,6 +2,7 @@ const express = require("express");
 const connect = require("./configs/mongo");
 require("dotenv").config();
 const authRoute = require("./routes/auth.route");
+const userRoute = require("./routes/user.route");
 
 const app = express();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/auth", authRoute);
+app.use("/api/v1/user", userRoute);
 
 const PORT = process.env.PORT || 1911;
 connect();
