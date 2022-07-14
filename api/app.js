@@ -1,11 +1,16 @@
 const express = require("express");
+const path = require("path");
 const connect = require("./configs/mongo");
 require("dotenv").config();
 const authRoute = require("./routes/auth.route");
 const userRoute = require("./routes/user.route");
 
 const app = express();
-
+console.log(path.resolve(__dirname, "public"));
+// path.join('/a', '/b') // Outputs '/a/b'
+// path.resolve('/a', '/b') // Outputs '/b'
+// b có dấu / nó hiểu là đường dẫn tuyệt đối nó sẽ lấy luôn
+app.use("/public", express.static(path.join(__dirname, "public")));
 app.use(express.json());
 // Kiểu mã hóa được dùng ở đây là kiểu URL Encoded.
 // Hiểu đơn giản thì dữ liệu được biểu diễn dưới dạng (key, value),
